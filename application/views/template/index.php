@@ -157,7 +157,7 @@
     <script src="<?= base_url('assets/js/js-cookie.js'); ?>"></script>
     <!-- Custom Javascript -->
     <?php
-    $arr_uri = array('stok_barang', 'barang', 'pegawai', 'supplier', 'costomer', 'data_pembelian', 'data_penjualan');
+    $arr_uri = array('stok_barang', 'barang', 'pegawai', 'supplier', 'data_pembelian', 'data_penjualan');
 
     if (in_array(strtolower($this->uri->segment(1)), $arr_uri) && !$this->uri->segment(2)) :
         switch ($this->uri->segment(1)) {
@@ -172,9 +172,6 @@
                 break;
             case 'supplier':
                 $file = 'ajax_supplier';
-                break;
-            case 'costomer':
-                $file = 'ajax_costomer';
                 break;
             case 'data_pembelian':
                 $file = 'ajax_pembelian';
@@ -255,24 +252,6 @@
         function GantiPW(a) {
             $('#IdU').val(a);
             $('[name="csrf_token"]').val(Cookies.get('csrf_cookie'));
-        }
-        
-        function tambah_costomer() {
-            var nama = $('#nama_costomer').val();
-            var alamat = $('#alamat').val();
-            var telp = $('#hp').val();
-            var csrf_token = Cookies.get('csrf_cookie');
-
-            $.ajax({
-                url: "<?= site_url('tambah_costomer'); ?>",
-                method: "POST",
-                data: {
-                    nama: nama,
-                    alamat: alamat,
-                    telp: telp,
-                    csrf_token: csrf_token
-                }
-            });
         }
 
         function tambah_cart() {
@@ -875,63 +854,6 @@
                             swal({
                                 title: "Error!",
                                 text: "Data supplier gagal dihapus",
-                                type: "error",
-                                showCancelButton: false,
-                                showConfirmButton: false,
-                                timer: 2000
-                            }, function() {
-                                swal.close();
-                            });
-                        }
-
-                    }
-                });
-            });
-        }
-
-        function hapus_costomer(id) {
-            swal({
-                title: 'Apakah anda yakin akan menghapus costomer ini ?',
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Ya, Hapus!',
-                closeOnConfirm: false
-            }, function() {
-                var csrf_token = Cookies.get('csrf_cookie');
-                var tabel = $('#tables').DataTable();
-
-                $.ajax({
-                    url: "<?= site_url('hapus_costomer'); ?>",
-                    method: "POST",
-                    data: {
-                        id: id,
-                        csrf_token: csrf_token
-                    },
-                    success: function(obj) {
-
-                        var a = $.parseJSON(obj);
-
-                        if (a.message == 'success') {
-                            swal({
-                                title: "Success!",
-                                text: "Data costomer berhasil dihapus",
-                                type: "success",
-                                showCancelButton: false,
-                                showConfirmButton: false,
-                                timer: 2000
-                            }, function() {
-                                swal.close();
-
-                                $('#tables').each(function() {
-                                    dt = $(this).DataTable();
-                                    dt.ajax.reload();
-                                });
-                            });
-                        } else {
-                            swal({
-                                title: "Error!",
-                                text: "Data costomer gagal dihapus",
                                 type: "error",
                                 showCancelButton: false,
                                 showConfirmButton: false,
