@@ -26,7 +26,7 @@
                     </a>
                 </li>
 
-                <li <?= (in_array(strtolower($this->uri->segment(1)), ['costomer', 'tambah_costomer', 'edit_costomer'])) ? 'class="active"' : ''; ?>>
+                <li <?= (in_array(strtolower($this->uri->segment(1)), ['supplier', 'tambah_supplier', 'edit_supplier'])) ? 'class="active"' : ''; ?>>
                     <a href="<?= site_url('costomer'); ?>">
                         <i class="fa fa-users"></i> Data Costomer
                     </a>
